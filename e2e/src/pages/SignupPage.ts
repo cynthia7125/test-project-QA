@@ -1,37 +1,38 @@
 /* eslint-disable perfectionist/sort-classes */
 import { expect, Page } from "@playwright/test";
 
-export default class LoginPage {
+export default class SignupPage {
   readonly page: Page;
   readonly usernameInputField;
   readonly passwordInputField;
+  readonly ConfirmPasswordInputField;
   readonly submitButton;
-  readonly errorAlert;
 
   constructor(page: Page) {
     this.page = page;
     this.usernameInputField = page.locator('input[id="username"]');
     this.passwordInputField = page.locator('input[id="password"]');
+    this.ConfirmPasswordInputField = page.locator('input[id="confirmPassword"]');
     this.submitButton = page.locator('button[type="submit"]');
-    this.errorAlert = page.locator('div[role="alert"]');
   }
-  public async goto() {
-    await this.page.goto("https://practice.expandtesting.com/login");
-  }
+
   public async assertCurrentPage() {
-    await expect(this.page).toHaveURL("https://practice.expandtesting.com/login");
+    await expect(this.page).toHaveURL("https://practice.expandtesting.com/register");
   }
-  public async fillUsername(username: string) {
+
+  public async goto() {
+    await this.page.goto("https://practice.expandtesting.com/register");
+  }
+  public async inputUsername(username: string) {
     await this.usernameInputField.fill(username);
   }
-  public async fillPassword(password: string) {
+  public async inputPassword(password: string) {
     await this.passwordInputField.fill(password);
+  }
+  public async inputConfirmPassword(confirmPassword: string) {
+    await this.ConfirmPasswordInputField.fill(confirmPassword);
   }
   public async clickSubmitButton() {
     await this.submitButton.click();
-    await expect(this.submitButton).toHaveCSS("background-color", "rgb(13, 110, 253)");
-  }
-  public async assertErrorAlert(message: string) {
-    await expect(this.errorAlert).toHaveText(message);
   }
 }
