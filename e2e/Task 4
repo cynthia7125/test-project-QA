@@ -1,0 +1,9 @@
+-- TASKS == /Users/sharatechnologieslimited/Documents/Playwright/test-project-QA/e2e/image.png
+
+SELECT Users.username from Users 
+LEFT JOIN Orders ON Users.user_id = Orders.user_id 
+LEFT JOIN OrderItems ON Orders.order_id = OrderItems.order_id 
+LEFT JOIN Products ON OrderItems.product_id = Products.product_id 
+WHERE Orders.order_date <= '2020-05-01' 
+AND Products.product_name = "Widget"
+AND OrderItems.quantity > 50
